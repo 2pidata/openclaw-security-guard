@@ -18,6 +18,7 @@ export { ConfigAuditor } from './scanners/config-auditor.js';
 export { PromptInjectionDetector } from './scanners/prompt-injection-detector.js';
 export { DependencyScanner } from './scanners/dependency-scanner.js';
 export { McpServerAuditor } from './scanners/mcp-server-auditor.js';
+export { InfraScanner } from './scanners/infra-scanner.js';
 
 // Hardening
 export { AutoHardener } from './hardening/auto-hardener.js';

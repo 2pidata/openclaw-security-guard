@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/npm/v/openclaw-security-guard?style=for-the-badge&color=blue&label=version" alt="npm version" />
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License" />
   <img src="https://img.shields.io/badge/Node.js-22%2B-success?style=for-the-badge&logo=node.js" alt="Node.js 22+" />
-  <img src="https://img.shields.io/badge/Tests-20%2F20%20Passing-success?style=for-the-badge" alt="Tests Passing" />
+  <img src="https://img.shields.io/badge/Tests-25%2F25%20Passing-success?style=for-the-badge" alt="Tests Passing" />
   <img src="https://img.shields.io/badge/Telemetry-ZERO-blueviolet?style=for-the-badge" alt="Zero Telemetry" />
 </p>
 
@@ -85,7 +85,7 @@ There are other security tools in the OpenClaw ecosystem. Here's how they compar
 
 ## What You Get
 
-### 5 Security Scanners
+### 5 Application Scanners + Infrastructure Module
 
 | Scanner | What it catches |
 |---|---|
@@ -94,6 +94,26 @@ There are other security tools in the OpenClaw ecosystem. Here's how they compar
 | **Prompt Injection Detector** | 50+ patterns: instruction overrides, role hijacking, data exfiltration, delimiter manipulation, jailbreak attempts. |
 | **Dependency Scanner** | Known CVEs in your npm dependency tree. |
 | **MCP Server Auditor** | Unverified MCP servers not in the community allowlist. |
+
+### Infrastructure Security (opt-in)
+
+For production deployments, add `--infra` to scan your server:
+
+```bash
+openclaw-guard audit --infra
+```
+
+| Scanner | What it checks |
+|---|---|
+| **Network Security** | Firewall status (UFW/firewalld/macOS), public port exposure, gateway bound to 0.0.0.0 vs 127.0.0.1 |
+| **SSH Access Control** | Password authentication, root login, fail2ban status, failed login attempts (24h) |
+| **System Hardening** | Security updates available, config file permissions (600 vs 777), unattended upgrades |
+| **TLS / Certificates** | Reverse proxy (Caddy/Nginx), Tailscale/WireGuard VPN status |
+| **Resource Security** | Disk usage (DoS risk at >90%), memory usage monitoring |
+
+The infra module catches what application scanning misses:
+- App score says 85/100, but gateway is on `0.0.0.0` with SSH password auth enabled = actually vulnerable
+- With `--infra`, the combined score reflects the real picture
 
 ### Auto-Hardening
 
@@ -146,6 +166,7 @@ The dashboard runs on `localhost` only, uses PBKDF2 password hashing (100k itera
 | `openclaw-guard audit` | Full security audit |
 | `openclaw-guard audit --deep` | Deep scan with entropy analysis |
 | `openclaw-guard audit --quick` | Fast scan, skip advanced checks |
+| `openclaw-guard audit --infra` | Include infrastructure scanning (network, SSH, system) |
 | `openclaw-guard audit --ci` | CI mode (exit code 1 on critical issues) |
 | `openclaw-guard fix` | Interactive fix mode |
 | `openclaw-guard fix --auto` | Automatic fix with backup |
@@ -280,7 +301,7 @@ PRs welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 git clone https://github.com/2pidata/openclaw-security-guard.git
 cd openclaw-security-guard
 npm install
-npm test    # 20 tests, 0 warnings
+npm test    # 25 tests, 0 warnings
 ```
 
 ---

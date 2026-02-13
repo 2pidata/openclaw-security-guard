@@ -23,7 +23,13 @@ const translations = {
     critical: 'Critical',
     high: 'High',
     medium: 'Medium',
-    low: 'Low'
+    low: 'Low',
+    infraScan: 'Infrastructure Scan',
+    networkScan: 'Network Security',
+    sshScan: 'SSH Access Control',
+    systemScan: 'System Hardening',
+    tlsScan: 'TLS / Certificates',
+    resourceScan: 'Resource Security'
   },
 
   fr: {
@@ -44,7 +50,13 @@ const translations = {
     critical: 'Critique',
     high: '\u00c9lev\u00e9',
     medium: 'Moyen',
-    low: 'Faible'
+    low: 'Faible',
+    infraScan: 'Scan d\'infrastructure',
+    networkScan: 'S\u00e9curit\u00e9 r\u00e9seau',
+    sshScan: 'Contr\u00f4le d\'acc\u00e8s SSH',
+    systemScan: 'Durcissement syst\u00e8me',
+    tlsScan: 'TLS / Certificats',
+    resourceScan: 'S\u00e9curit\u00e9 des ressources'
   },
 
   ar: {
@@ -65,7 +77,13 @@ const translations = {
     critical: '\u062d\u0631\u062c',
     high: '\u0639\u0627\u0644\u064a',
     medium: '\u0645\u062a\u0648\u0633\u0637',
-    low: '\u0645\u0646\u062e\u0641\u0636'
+    low: '\u0645\u0646\u062e\u0641\u0636',
+    infraScan: '\u0641\u062d\u0635 \u0627\u0644\u0628\u0646\u064a\u0629 \u0627\u0644\u062a\u062d\u062a\u064a\u0629',
+    networkScan: '\u0623\u0645\u0646 \u0627\u0644\u0634\u0628\u0643\u0629',
+    sshScan: '\u0627\u0644\u062a\u062d\u0643\u0645 \u0641\u064a \u0627\u0644\u0648\u0635\u0648\u0644 \u0639\u0628\u0631 SSH',
+    systemScan: '\u062a\u0642\u0648\u064a\u0629 \u0627\u0644\u0646\u0638\u0627\u0645',
+    tlsScan: 'TLS / \u0627\u0644\u0634\u0647\u0627\u062f\u0627\u062a',
+    resourceScan: '\u0623\u0645\u0646 \u0627\u0644\u0645\u0648\u0627\u0631\u062f'
   }
 };
 

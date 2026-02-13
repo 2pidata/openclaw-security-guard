@@ -28,6 +28,7 @@ import { ConfigAuditor } from '../scanners/config-auditor.js';
 import { PromptInjectionDetector } from '../scanners/prompt-injection-detector.js';
 import { DependencyScanner } from '../scanners/dependency-scanner.js';
 import { McpServerAuditor } from '../scanners/mcp-server-auditor.js';
+import { InfraScanner } from '../scanners/infra-scanner.js';
 
 // Import other modules
 import { AutoHardener } from '../hardening/auto-hardener.js';
@@ -84,6 +85,7 @@ program
   .option('-o, --output <path>', 'Output file')
   .option('-f, --format <format>', 'Output format (text|json|html|md)', 'text')
   .option('--ci', 'CI mode (exit 1 on critical issues)')
+  .option('--infra', 'Include infrastructure security scanning (network, SSH, system)')
   .action(async (options) => {
     const config = await loadConfig(program.opts().config);
     const _t = i18n(program.opts().lang);
@@ -108,6 +110,11 @@ program
       { name: 'deps', Scanner: DependencyScanner, icon: '📦', label: 'Dependency Scanner' },
       { name: 'mcp', Scanner: McpServerAuditor, icon: '🔌', label: 'MCP Auditor' }
     ];
+
+    // Add infrastructure scanner if --infra flag is set
+    if (options.infra) {
+      scanners.push({ name: 'infra', Scanner: InfraScanner, icon: '🏗️', label: 'Infrastructure Scanner' });
+    }
     
     // Run each scanner
     for (const { name, Scanner, icon, label } of scanners) {

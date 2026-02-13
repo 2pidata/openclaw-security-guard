@@ -290,6 +290,72 @@ describe('Authentication Security', () => {
 });
 
 // ============================================================
+// INFRASTRUCTURE SCANNER TESTS
+// ============================================================
+
+describe('Infrastructure Scanner', () => {
+
+  it('should instantiate without errors', async () => {
+    const { InfraScanner } = await import('../../src/scanners/infra-scanner.js');
+    const scanner = new InfraScanner({});
+    expect(scanner).toBeDefined();
+    expect(scanner.platform).toBeDefined();
+  });
+
+  it('should return findings array and summary object', { timeout: 30000 }, async () => {
+    const { InfraScanner } = await import('../../src/scanners/infra-scanner.js');
+    const scanner = new InfraScanner({});
+    const result = await scanner.scan('/tmp');
+
+    expect(Array.isArray(result.findings)).toBe(true);
+    expect(result.summary).toBeDefined();
+    expect(typeof result.summary.critical).toBe('number');
+    expect(typeof result.summary.high).toBe('number');
+    expect(typeof result.summary.medium).toBe('number');
+    expect(typeof result.summary.low).toBe('number');
+  });
+
+  it('should include infrastructure report sections', { timeout: 30000 }, async () => {
+    const { InfraScanner } = await import('../../src/scanners/infra-scanner.js');
+    const scanner = new InfraScanner({});
+    const result = await scanner.scan('/tmp');
+
+    if (!result.skipped) {
+      expect(result.infraReport).toBeDefined();
+      expect(result.infraReport.network).toBeDefined();
+      expect(result.infraReport.ssh).toBeDefined();
+      expect(result.infraReport.system).toBeDefined();
+      expect(result.infraReport.tls).toBeDefined();
+      expect(result.infraReport.resources).toBeDefined();
+    }
+  });
+
+  it('should report resource metrics', { timeout: 30000 }, async () => {
+    const { InfraScanner } = await import('../../src/scanners/infra-scanner.js');
+    const scanner = new InfraScanner({});
+    const result = await scanner.scan('/tmp');
+
+    if (!result.skipped) {
+      const resources = result.infraReport.resources;
+      expect(typeof resources.memoryUsagePercent).toBe('number');
+      expect(resources.cpuCount).toBeGreaterThan(0);
+      expect(resources.uptime).toBeGreaterThan(0);
+    }
+  });
+
+  it('should use safe command execution (execFile)', async () => {
+    const content = await fs.readFile(
+      path.join(process.cwd(), 'src/scanners/infra-scanner.js'),
+      'utf-8'
+    );
+    // Must use the safe execFile variant
+    expect(content).toContain('execFile');
+    expect(content).toContain('promisify');
+  });
+
+});
+
+// ============================================================
 // HELPERS
 // ============================================================
 
