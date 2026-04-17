@@ -347,7 +347,7 @@ npm run dev
 
 **صنعه [Miloud Belarebia](https://github.com/miloudbelarebia)**
 
-**[2pidata.com](https://2pidata.com)** | **#databelarebia**
+**[2pidata.com](https://2pidata.com)** | **#miloudbelarebia**
 
 </div>
 

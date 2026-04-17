@@ -745,6 +745,6 @@ Open an issue on [GitHub](https://github.com/2pidata/openclaw-security-guard/iss
 
 **Made with ❤️ by [Miloud Belarebia](https://github.com/2pidata)**
 
-[2pidata.com](https://2pidata.com) • #databelarebia 🇲🇦
+[2pidata.com](https://2pidata.com) • #miloudbelarebia 🇲🇦
 
 </div>
